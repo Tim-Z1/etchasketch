@@ -1,35 +1,32 @@
-/*
-Create a webpage with a 16x16 grid of square divs.
-Create the divs using JavaScript. Don’t try making them by hand with copy and pasting in your HTML file!
-It’s best to put your grid squares inside another “container” div (which can go directly in your HTML).
-
-There are several different ways to make the divs appear as a grid (versus just one on each line). Feel free to use any or play with each of them:
-float/clear
-inline-block
-flexbox
-CSS Grid
-
-Be careful with borders and margins, as they can adjust the size of the squares!
-“OMG, why isn’t my grid being created???”
-Did you link your CSS stylesheet?
-Open your browser’s developer tools.
-Check if there are any errors in the JavaScript console.
-Check your “elements” pane to see if the elements have actually shown up but are somehow hidden.
-Go willy-nilly and add console.log statements in your JavaScript to see if it’s actually being loaded.
-*/
-
 const container = document.querySelector('.container');
 const button = document.querySelector('.button');
+
 let input; //is global variable bad?
 
-//add a default div grid so it can be useable from the very beginning
+for (i = 0; i < 16*16; i++) {
+    const box = document.createElement('div');
+    container.appendChild(box);
+    box.style.width = '6.25%';
+
+    box.addEventListener('mouseover', () => {
+        box.style.backgroundColor = 'purple';
+    });
+}
 
 button.addEventListener('click', changeGrid);
 
-function changeGrid () {
-    input = prompt("Enter a number below");
+function changeGrid() {
+    //the 3 lines below remove all existing divs in container (got this code from mdn)
+    let element = container;
+    while (element.firstChild) {
+    element.removeChild(element.firstChild);
+}
+    input = prompt("Enter a number below (single number)");
 
-    //insert a code line here that removes loop created div elements 
+    if (input > 100) {
+        alert('Grid size too big! Max is 100x100')
+        input = prompt("Enter a number below (single number)");
+    }
 
     //style.width requires a string, using two variables to achieve that
     let value = 100/input;
@@ -45,12 +42,7 @@ function changeGrid () {
         box.style.backgroundColor = 'purple';
     });
     }
-
 }
-
-//need a way to reset divs not just keep adding divs when changing grid size
-
-
 
 /* Pseudo-code
 Use hover effect to change color of div 
@@ -60,7 +52,6 @@ Add a button that prompts user to input a number (max 100):
     i.e. how many squares user wants 3x3, 9x9 etc.
 
 */
-
 
 /*
 ways to make a grid:
